@@ -1,21 +1,21 @@
 import youtube_dl
 import sys
 
-video_url = sys.argv[1]
-name = sys.argv[2]
+inputUrl = sys.argv[1]
+inputName = sys.argv[2]
+
 
 def run():
-    print(url)
-    print(name)
-    video_url = input("please enter youtube video url:")
+
+    video_url = inputUrl
     video_info = youtube_dl.YoutubeDL().extract_info(
         url = video_url,download=False
     )
-    filename = f"{video_info['title']}.mp3"
+    filename = f"{inputName}.mp3"
     options={
         'format':'bestaudio/best',
         'keepvideo':False,
-        'outtmpl':"yo",
+        'outtmpl':filename,
     }
 
     with youtube_dl.YoutubeDL(options) as ydl:
