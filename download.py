@@ -1,27 +1,35 @@
-import youtube_dl
 import sys
+import os
+import yt_dlp
 
-inputUrl = sys.argv[1]
-inputName = sys.argv[2]
+def run(inputUrl:str, inputName:str):
 
+    URLS = [inputUrl]
 
-def run():
-
-    video_url = inputUrl
-    video_info = youtube_dl.YoutubeDL().extract_info(
-        url = video_url,download=False
-    )
-    filename = f"{inputName}.mp3"
-    options={
-        'format':'bestaudio/best',
-        'keepvideo':False,
-        'outtmpl':filename,
+    ydl_opts = {
+        'format': 'mp3/bestaudio/best',
+        'outtmpl': inputName + ".%(ext)s",
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+        }]
     }
 
-    with youtube_dl.YoutubeDL(options) as ydl:
-        ydl.download([video_info['webpage_url']])
-
-    print("Download complete... {}".format(filename))
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        error_code = ydl.download(URLS)
 
 if __name__=='__main__':
-    run()
+
+    if(os.path.isfile('./urls.txt')) :
+        print("File exists!")
+        filename = './urls.txt'
+        with open(filename) as file:
+         lines = file.readlines()
+         lines = [line.rstrip() for line in lines]
+
+        for line in lines:
+            space = line.find(" ")
+            url = line[0:space]
+            title = line[space+1:]
+            run(url, title)
+
