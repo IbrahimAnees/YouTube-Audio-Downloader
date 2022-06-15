@@ -16,10 +16,10 @@ Download multiple YouTube videos simultaneously as mp3 files, saved with custom 
 Each line should contain the URL followed by the desired output name.
 The URL and title should be separated by a whitespace character.
 
-Example file urls.txt:
-https://youtube.com/watch?v=example1 First file
+Example file urls.txt: <br />
+https://youtube.com/watch?v=example1 First file <br />
 https://youtube.com/watch?v=example2 File 2
 
-Audio files will be downloaded as:
-First file.mp3
+Audio files will be downloaded as: <br />
+First file.mp3 <br />
 File 2.mp3
